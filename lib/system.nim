@@ -2877,12 +2877,12 @@ proc `==`*[T](x, y: seq[T]): bool {.noSideEffect.} =
   return true
 
 proc astToStr*[T](x: T): string {.magic: "AstToStr", noSideEffect.}
-  ## converts the AST of `x` into a string representation. This is very useful
+  ## Converts the AST of `x` into a string representation. This is very useful
   ## for debugging.
 
 proc instantiationInfo*(index = -1, fullPaths = false): tuple[
   filename: string, line: int, column: int] {.magic: "InstantiationInfo", noSideEffect.}
-  ## provides access to the compiler's instantiation stack line information
+  ## Provides access to the compiler's instantiation stack line information
   ## of a template.
   ##
   ## While similar to the `caller info`:idx: of other languages, it is determined

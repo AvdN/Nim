@@ -1,3 +1,6 @@
+from typetraits import isNamedTuple
+
+
 proc `$`*(x: int): string {.magic: "IntToStr", noSideEffect.}
   ## The stringify operator for an integer argument. Returns `x`
   ## converted to a decimal string. ``$`` is Nim's general way of
@@ -48,27 +51,6 @@ proc `$`*(t: typedesc): string {.magic: "TypeTrait".} =
     doAssert $(type("Foo")) == "string"
     static: doAssert $(type(@['A', 'B'])) == "seq[char]"
 
-
-type InstantiationInfo = tuple[filename: string, line: int, column: int]
-
-proc `$`(info: InstantiationInfo): string =
-  # The +1 is needed here
-  # instead of overriding `$` (and changing its meaning), consider explicit name.
-  info.fileName & "(" & $info.line & ", " & $(info.column+1) & ")"
-
-proc isNamedTuple(T: type): bool =
-  ## return true for named tuples, false for any other type.
-  when T isnot tuple: result = false
-  else:
-    var t: T
-    for name, _ in t.fieldPairs:
-      when name == "Field0":
-        return compiles(t.Field0)
-      else:
-        return true
-    # empty tuple should be un-named,
-    # see https://github.com/nim-lang/Nim/issues/8861#issue-356631191
-    return false
 
 proc `$`*[T: tuple|object](x: T): string =
   ## Generic ``$`` operator for tuples that is lifted from the components
