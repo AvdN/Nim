@@ -38,15 +38,16 @@ proc `$`*[Enum: enum](x: Enum): string {.magic: "EnumToStr", noSideEffect.}
   ## If a ``$`` operator for a concrete enumeration is provided, this is
   ## used instead. (In other words: *Overwriting* is possible.)
 
-proc `$`*(t: typedesc): string {.magic: "TypeTrait".} =
+proc `$`*(t: typedesc): string {.magic: "TypeTrait".}
   ## Returns the name of the given type.
   ##
   ## For more procedures dealing with ``typedesc``, see
   ## `typetraits module <typetraits.html>`_.
-  runnableExamples:
-    doAssert $(type(42)) == "int"
-    doAssert $(type("Foo")) == "string"
-    static: doAssert $(type(@['A', 'B'])) == "seq[char]"
+  ##
+  ## .. code-block:: Nim
+  ##   doAssert $(type(42)) == "int"
+  ##   doAssert $(type("Foo")) == "string"
+  ##   static: doAssert $(type(@['A', 'B'])) == "seq[char]"
 
 
 proc isNamedTuple(T: typedesc): bool =
