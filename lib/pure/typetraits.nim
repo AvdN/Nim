@@ -59,7 +59,7 @@ proc supportsCopyMem*(t: typedesc): bool {.magic: "TypeTrait".}
   ##
   ## Other languages name a type like these `blob`:idx:.
 
-proc isNamedTuple*(T: type): bool =
+proc isNamedTuple*(T: typedesc): bool =
   ## Return true for named tuples, false for any other type.
   when T isnot tuple: result = false
   else:
